@@ -92,9 +92,9 @@ class Sort:
         if self.playsound and sound != -1:
             if sound == len(self.arr):
                 sound -= 1
-            sine(frequency=400 + (1500 * self.arr[sound] // len(self.arr)), duration = self.delay)
+            sine(frequency=400 + (2000 * self.arr[sound] // len(self.arr)), duration = self.delay)
         elif self.playsound and self.check != -1:
-                sine(frequency=400 + (1500 * self.arr[self.check] // len(self.arr)), duration=self.delay * 2)
+            sine(frequency=400 + (2000 * self.arr[self.check] // len(self.arr)), duration=self.delay)
         else:
             time.sleep(self.delay)
 

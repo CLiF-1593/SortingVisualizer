@@ -8,4 +8,4 @@ class InsertionSort(Sort):
                 self.Step(comparing_index=[i - 1, i], sound=i-1)
                 self.arr[i], self.arr[i - 1] = self.arr[i - 1], self.arr[i]
                 self.Step(comparing_index=[i - 1, i], sound=i-1)
-                i -= 1;
+                i -= 1
