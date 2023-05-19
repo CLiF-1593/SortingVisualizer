@@ -26,6 +26,7 @@ class Sort:
     thread : threading.Thread
     state : State
     playsound : bool
+    max_data : int
 
     #Pulbic Methods
     def __init__(self):
@@ -35,18 +36,21 @@ class Sort:
         self.thread = threading.Thread()
         self.state = Sort.State.NOT_INITIALIZED
         self.playsound = False
+        self.max_data = 0
 
-    def SetArray(self, arr: list):
+    def SetArrayDirectly(self, arr: list):
         self.arr = arr
         self.state = Sort.State.RESTING
+        self.max_data = max(arr)
 
-    def SetArray(self, size: int, type: ArrayType):
-        self.arr = list(range(size))
+    def SetArray(self, size: int, unit: int, type: ArrayType):
+        self.arr = list(range(0, size, unit))
         if type == ArrayType.REVERSED:
             self.arr.reverse()
         elif type == ArrayType.RANDOM:
             random.shuffle(self.arr)
         self.state = Sort.State.RESTING
+        self.max_data = size - 1
 
     def SetSpeed(self, delay):
         self.delay = delay
@@ -92,9 +96,9 @@ class Sort:
         if self.playsound and sound != -1:
             if sound == len(self.arr):
                 sound -= 1
-            sine(frequency=400 + (2000 * self.arr[sound] // len(self.arr)), duration = self.delay)
+            sine(frequency=400 + (2000 * self.arr[sound] // self.max_data), duration = self.delay)
         elif self.playsound and self.check != -1:
-            sine(frequency=400 + (2000 * self.arr[self.check] // len(self.arr)), duration=self.delay)
+            sine(frequency=400 + (2000 * self.arr[self.check] // self.max_data), duration=self.delay)
         else:
             time.sleep(self.delay)
 
