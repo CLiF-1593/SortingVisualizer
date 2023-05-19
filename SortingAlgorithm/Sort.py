@@ -90,13 +90,16 @@ class Sort:
         self.partition = partition
         self.check = checked
         if self.playsound and self.comparing:
-            sine(frequency=300 + (1500 * self.comparing[0] // len(self.arr)), duration = self.delay)
+            sine(frequency=400 + (1500 * self.arr[self.comparing[0]] // len(self.arr)), duration = self.delay)
+        elif self.playsound and self.check != -1:
+                sine(frequency=400 + (1500 * self.arr[self.check] // len(self.arr)), duration=self.delay * 2)
         else:
             time.sleep(self.delay)
 
     def CheckState(self):
         if self.state == Sort.State.SORTING and not self.thread.isAlive():
             self.state = Sort.State.CHECKING
+            self.CheckArray()
         if self.state == Sort.State.CHECKING and not self.thread.isAlive():
             self.state = Sort.State.RESTING
 
