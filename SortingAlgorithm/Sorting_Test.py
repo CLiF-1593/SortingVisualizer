@@ -8,13 +8,16 @@ from SortingAlgorithm.Shell_Sort import ShellSort
 from SortingAlgorithm.Radix_Sort import RadixSort
 from SortingAlgorithm.Heap_Sort import HeapSort
 from SortingAlgorithm.CombSort import CombSort
+from SortingAlgorithm.Counting_Sort import CountingSort
+from SortingAlgorithm.Tim_Sort import TimSort
+from SortingAlgorithm.Intro_Sort import IntroSort
 
 import time
 
 if __name__ == '__main__':
-    sort = CombSort()
-    sort.SetArray(100, 1, ArrayType.RANDOM)
-    sort.SetSpeed(0.02)
+    sort = IntroSort()
+    sort.SetArray(300, 1, ArrayType.REVERSED)
+    sort.SetSpeed(0.01)
     sort.SetPlaysound(True)
     sort.Sort()
     while not sort.IsFinished():
