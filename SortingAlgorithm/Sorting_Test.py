@@ -11,12 +11,15 @@ from SortingAlgorithm.CombSort import CombSort
 from SortingAlgorithm.Counting_Sort import CountingSort
 from SortingAlgorithm.Tim_Sort import TimSort
 from SortingAlgorithm.Intro_Sort import IntroSort
+from SortingAlgorithm.Bogo_Sort import BogoSort
+from SortingAlgorithm.Odd_Even_Sort import OddEvenSort
+from SortingAlgorithm.Gnome_Sort import GnomeSort
 
 import time
 
 if __name__ == '__main__':
-    sort = IntroSort()
-    sort.SetArray(300, 1, ArrayType.REVERSED)
+    sort = GnomeSort()
+    sort.SetArray(50, 1, ArrayType.RANDOM)
     sort.SetSpeed(0.01)
     sort.SetPlaysound(True)
     sort.Sort()
