@@ -5,7 +5,7 @@ class RadixSort(Sort):
 
     def __init__(self, timer):
         Sort.__init__(self, timer)
-        self.unit = 10
+        self.unit = 4
 
     def SetUnit(self, unit : int):
         if unit > 0:

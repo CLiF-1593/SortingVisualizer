@@ -13,15 +13,15 @@ class IntroSort(Sort):
 
     def intro(self, begin, end, depth):
         if end - begin + 1 <= 16:
-            insertion_sort = InsertionSort()
-            insertion_sort.SetSpeed(self.delay)
+            insertion_sort = InsertionSort(self.timer)
+            insertion_sort.delay = self.delay
             insertion_sort.SetPlaysound(self.playsound)
             insertion_sort.SetArrayDirectly(self.arr)
             insertion_sort.SortingProcess(begin, end)
             return
         if depth == 0 :
-            heap_sort = HeapSort()
-            heap_sort.SetSpeed(self.delay)
+            heap_sort = HeapSort(self.timer)
+            heap_sort.delay = self.delay
             heap_sort.SetPlaysound(self.playsound)
             heap_sort.SetArrayDirectly(self.arr)
             heap_sort.SortingProcess(begin, end)

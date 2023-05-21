@@ -25,22 +25,24 @@ class Sort:
     comparing: list
     partition: list
     check: int
-    delay: float
+    delay: list
     thread: threading.Thread
     state: State
     playsound: bool
     max_data: int
+    run: bool
 
     # Pulbic Methods
     def __init__(self, timer: SylTimer):
         self.InitValues()
         self.arr = []
-        self.delay = 0
+        self.delay = [0]
         self.thread = threading.Thread()
         self.state = Sort.State.NOT_INITIALIZED
         self.playsound = False
         self.max_data = 0
         self.timer = timer
+        self.run = False
 
     def SetArrayDirectly(self, arr: list):
         self.arr = arr
@@ -57,7 +59,7 @@ class Sort:
         self.max_data = size - 1
 
     def SetSpeed(self, delay):
-        self.delay = delay
+        self.delay[0] = delay
 
     def SetPlaysound(self, playsound):
         self.playsound = playsound
@@ -65,11 +67,16 @@ class Sort:
     def Sort(self):
         if self.state == Sort.State.RESTING:
             self.state = Sort.State.SORTING
-            self.thread = threading.Thread(target=self.SortingProcess)
+            self.run = True
+            self.thread = threading.Thread(target=self.sort_and_check)
             self.thread.start()
 
-    def IsFinished(self):
+    def sort_and_check(self):
+        self.SortingProcess()
         self.CheckState()
+
+
+    def IsFinished(self):
         return self.state == Sort.State.RESTING or self.state == Sort.State.NOT_INITIALIZED
 
     # Get Current Pivot (Integer Index, -1 : None)
@@ -102,17 +109,16 @@ class Sort:
         if self.playsound and sound != -1:
             if sound == len(self.arr):
                 sound -= 1
-            sine(frequency=400 + (2000 * self.arr[sound] // self.max_data), duration=self.delay)
+            sine(frequency=400 + (2000 * self.arr[sound] // self.max_data), duration=self.delay[0])
         elif self.playsound and self.check != -1:
-            sine(frequency=400 + (2000 * self.arr[self.check] // self.max_data), duration=self.delay)
+            sine(frequency=400 + (2000 * self.arr[self.check] // self.max_data), duration=self.delay[0])
         else:
-            self.timer.clock(self.delay)
+            self.timer.clock(self.delay[0])
 
     def CheckState(self):
-        if self.state == Sort.State.SORTING and not self.thread.isAlive():
+        if self.state == Sort.State.SORTING:
             self.state = Sort.State.CHECKING
             self.CheckArray()
-        if self.state == Sort.State.CHECKING and not self.thread.isAlive():
             self.state = Sort.State.RESTING
 
     def CheckArray(self):

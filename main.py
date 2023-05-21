@@ -54,7 +54,7 @@ class MainWidget(QWidget):
 
         self.sort_method_list = [BogoSort, BubbleSort, CombSort, CountingSort, GnomeSort,
                                  HeapSort, InsertionSort, IntroSort, MergeSort, OddEvenSort,
-                                 QuickSort, RadixSort, SelectionSort, ShellSort, TimSort]
+                                 QuickSort, QuickSort, RadixSort, SelectionSort, ShellSort, TimSort]
         self.sort_method_list_str = ['Bogo Sort', 'Bubble Sort', 'Comb Sort', 'Counting Sort',
                                      'Gnome Sort', 'Heap Sort', 'Insertion Sort', 'Intro Sort',
                                      'Merge Sort', 'Odd Even Sort', 'Quick Sort (Left Pivot)',
@@ -268,7 +268,6 @@ class MainWidget(QWidget):
             self.init_arr = None
             self.is_shuffled = False
         self.update()
-        print(method)
 
     def _shuffleData(self):
         if self.shuffle_method == 'Random':
@@ -279,7 +278,6 @@ class MainWidget(QWidget):
 
     def _setSortMethod(self, method):
         self.sort_method = method
-        print(method)
 
     def _setSortingDelay(self, speed):
         speed = int(4**(speed / 50))
@@ -288,12 +286,10 @@ class MainWidget(QWidget):
         self.sorting_speed_slider_label.setText(
             f'Speed : {speed} ({self.sorting_delay * 10000 // 1 / 10}ms/step)')
         if self.running: self.sorter.SetSpeed(self.sorting_delay)
-        print(self.sorting_speed, round(self.sorting_delay, 6))
 
     def _setSFX(self, state):
         self.sfx = True if state == 2 else False
         if self.running: self.sorter.SetPlaysound(self.sfx)
-        print(self.sfx)
 
     def _sortingStart(self):
         self.data_size_slider.setEnabled(False)
@@ -311,7 +307,12 @@ class MainWidget(QWidget):
         elif self.is_shuffled is False:
             self._shuffleData()
 
-        self.sorter = self.sort_method_list[self.sort_method_list_str.index(self.sort_method)](self.sort_timer)
+        index = self.sort_method_list_str.index(self.sort_method)
+        self.sorter = self.sort_method_list[index](self.sort_timer)
+        if index == 10:
+            self.sorter.SetPivot(QuickSort.PivotType.PIVOT_FIRST)
+        elif index == 11:
+            self.sorter.SetPivot(QuickSort.PivotType.PIVOT_LAST)
         self.sorter.SetArrayDirectly(self.init_arr)
         self.sorter.SetSpeed(self.sorting_delay)
         self.sorter.SetPlaysound(self.sfx)
@@ -335,7 +336,6 @@ class MainWidget(QWidget):
     # ============================================================================
 
     def paintEvent(self, event):
-        print(self.running)
 
         painter = QPainter(self)
 
@@ -363,7 +363,7 @@ class MainWidget(QWidget):
     # ===========================================================================
 
     def update_graphic(self):
-        if self.update_graphic_related_values():
+        if self.update_graphic_related_values() or self.running:
             self.update()
 
     def update_graphic_related_values(self):
@@ -376,8 +376,8 @@ class MainWidget(QWidget):
             fontSize_by_height = 15 * nh / 900 // 1
             self.mainFont.setPointSize(min(fontSize_by_width, fontSize_by_height))
             self.data_size_slider_label.setFont(self.mainFont)
-            self.shuffle_btn.setFont(self.mainFont)
             self.shuffle_select_comboBox.setFont(self.mainFont)
+            self.shuffle_btn.setFont(self.mainFont)
             self.sort_select_comboBox.setFont(self.mainFont)
             self.sorting_speed_slider_label.setFont(self.mainFont)
             self.sound_toggle_checkBox.setFont(self.mainFont)
