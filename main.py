@@ -57,8 +57,9 @@ class MainWidget(QWidget):
                                  QuickSort, RadixSort, SelectionSort, ShellSort, TimSort]
         self.sort_method_list_str = ['Bogo Sort', 'Bubble Sort', 'Comb Sort', 'Counting Sort',
                                      'Gnome Sort', 'Heap Sort', 'Insertion Sort', 'Intro Sort',
-                                     'Merge Sort', 'Odd Even Sort', 'Quick Sort', 'Radix Sort',
-                                     'Selection Sort', 'Shell Sort', 'Tim Sort']
+                                     'Merge Sort', 'Odd Even Sort', 'Quick Sort (Left Pivot)',
+                                     'Quick Sort (Right Pivot)', 'Radix Sort', 'Selection Sort',
+                                     'Shell Sort', 'Tim Sort']
 
         self._init_ui()
 
