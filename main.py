@@ -108,6 +108,7 @@ class MainWidget(QWidget):
         self.shuffle_btn = QPushButton('Shuffle')
         self.shuffle_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.shuffle_btn.setFont(self.mainFont)
+        self.shuffle_btn.setEnabled(False)
         
         #
         
@@ -253,6 +254,7 @@ class MainWidget(QWidget):
 
     def _setShuffleMethod(self, method):
         if method == 'Random':
+            self.shuffle_btn.setEnabled(True)
             if self.shuffle_method != 'Random':
                 self.saved_shuffle_method = self.shuffle_method
             if self.shuffle_method == 'Sorted':
@@ -261,6 +263,7 @@ class MainWidget(QWidget):
                 self.init_arr = list(range(self.data_size - 1, -1, -1))
         self.shuffle_method = method
         if method != 'Random':
+            self.shuffle_btn.setEnabled(False)
             del self.init_arr
             self.init_arr = None
             self.is_shuffled = False
@@ -310,6 +313,9 @@ class MainWidget(QWidget):
 
         self.sorter = self.sort_method_list[self.sort_method_list_str.index(self.sort_method)](self.sort_timer)
         self.sorter.SetArrayDirectly(self.init_arr)
+        self.sorter.SetSpeed(self.sorting_delay)
+        self.sorter.SetPlaysound(self.sfx)
+        self.sorter.Sort()
 
         self.running = True
 
@@ -329,6 +335,7 @@ class MainWidget(QWidget):
     # ============================================================================
 
     def paintEvent(self, event):
+        print(self.running)
 
         painter = QPainter(self)
 
@@ -342,6 +349,8 @@ class MainWidget(QWidget):
                 if self.shuffle_method == 'Random': val = self.init_arr[i]
                 if self.shuffle_method == 'Sorted': val = i
                 if self.shuffle_method == 'Reversed': val = self.data_size - 1 - i
+            else:
+                val = self.init_arr[i]
 
             painter.fillRect(self.c_xy + i * self.c_w // self.data_size,
                              self.c_xy + (self.data_size - val - 1) * self.c_h // self.data_size,
