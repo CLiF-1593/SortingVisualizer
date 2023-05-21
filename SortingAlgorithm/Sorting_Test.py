@@ -16,12 +16,16 @@ from SortingAlgorithm.Odd_Even_Sort import OddEvenSort
 from SortingAlgorithm.Gnome_Sort import GnomeSort
 
 import time
+from SylTimer import SylTimer
 
 if __name__ == '__main__':
-    sort = GnomeSort()
-    sort.SetArray(50, 1, ArrayType.RANDOM)
+    timer = SylTimer()
+
+    sort = RadixSort(timer)
+    sort.SetArray(999, 1, ArrayType.RANDOM)
     sort.SetSpeed(0.01)
     sort.SetPlaysound(True)
+    timer.zero()
     sort.Sort()
     while not sort.IsFinished():
         time.sleep(0.016)

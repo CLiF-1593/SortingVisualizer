@@ -3,8 +3,8 @@ from SortingAlgorithm.Sort import Sort
 class RadixSort(Sort):
     unit : int
 
-    def __init__(self):
-        Sort.__init__(self)
+    def __init__(self, timer):
+        Sort.__init__(self, timer)
         self.unit = 10
 
     def SetUnit(self, unit : int):

@@ -9,8 +9,8 @@ class QuickSort(Sort):
 
     type : PivotType
 
-    def __init__(self):
-        Sort.__init__(self)
+    def __init__(self, timer):
+        Sort.__init__(self, timer)
         self.type = QuickSort.PivotType.PIVOT_FIRST
 
     def SetPivot(self, type : PivotType):

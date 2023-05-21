@@ -4,11 +4,14 @@ from enum import Enum
 import threading
 import random
 from pysine import sine
+from SylTimer import SylTimer
+
 
 class ArrayType(Enum):
     RANDOM = 0
     SORTED = 1
     REVERSED = 2
+
 
 class Sort:
     class State(Enum):
@@ -17,19 +20,19 @@ class Sort:
         SORTING = 1
         CHECKING = 2
 
-    arr : list
-    pivot : int
-    comparing : list
-    partition : list
-    check : int
-    delay : int
-    thread : threading.Thread
-    state : State
-    playsound : bool
-    max_data : int
+    arr: list
+    pivot: int
+    comparing: list
+    partition: list
+    check: int
+    delay: float
+    thread: threading.Thread
+    state: State
+    playsound: bool
+    max_data: int
 
-    #Pulbic Methods
-    def __init__(self):
+    # Pulbic Methods
+    def __init__(self, timer: SylTimer):
         self.InitValues()
         self.arr = []
         self.delay = 0
@@ -37,6 +40,7 @@ class Sort:
         self.state = Sort.State.NOT_INITIALIZED
         self.playsound = False
         self.max_data = 0
+        self.timer = timer
 
     def SetArrayDirectly(self, arr: list):
         self.arr = arr
@@ -61,7 +65,7 @@ class Sort:
     def Sort(self):
         if self.state == Sort.State.RESTING:
             self.state = Sort.State.SORTING
-            self.thread = threading.Thread(target = self.SortingProcess)
+            self.thread = threading.Thread(target=self.SortingProcess)
             self.thread.start()
 
     def IsFinished(self):
@@ -84,11 +88,13 @@ class Sort:
     def GetCheckedIndex(self):
         return self.check
 
-    #Private Methods
+    # Private Methods
     @abstractmethod
-    def SortingProcess(self): pass
+    def SortingProcess(self):
+        pass
 
-    def Step(self, pivot : int = -1, comparing_index : list = [], partition : list = [], checked : int  = -1, sound : int = -1):
+    def Step(self, pivot: int = -1, comparing_index: list = [], partition: list = [], checked: int = -1,
+             sound: int = -1):
         self.pivot = pivot
         self.comparing = comparing_index
         self.partition = partition
@@ -96,11 +102,11 @@ class Sort:
         if self.playsound and sound != -1:
             if sound == len(self.arr):
                 sound -= 1
-            sine(frequency=400 + (2000 * self.arr[sound] // self.max_data), duration = self.delay)
+            sine(frequency=400 + (2000 * self.arr[sound] // self.max_data), duration=self.delay)
         elif self.playsound and self.check != -1:
             sine(frequency=400 + (2000 * self.arr[self.check] // self.max_data), duration=self.delay)
         else:
-            time.sleep(self.delay)
+            self.timer.clock(self.delay)
 
     def CheckState(self):
         if self.state == Sort.State.SORTING and not self.thread.isAlive():
@@ -114,8 +120,8 @@ class Sort:
         for i in range(len(self.arr) - 1):
             if self.arr[i] > self.arr[i + 1]:
                 raise Exception("Sorting Failed!!!")
-            self.Step(checked = i)
-        self.Step(checked = len(self.arr) - 1)
+            self.Step(checked=i)
+        self.Step(checked=len(self.arr) - 1)
 
     def InitValues(self):
         self.pivot = -1
