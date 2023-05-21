@@ -1,4 +1,4 @@
-from SortingAlgorithm.Sort import Sort
+from Sort import Sort
 
 class OddEvenSort(Sort):
     def SortingProcess(self):

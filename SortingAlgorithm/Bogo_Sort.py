@@ -1,7 +1,7 @@
 import math
 from random import randrange
 
-from SortingAlgorithm.Sort import Sort
+from Sort import Sort
 
 class BogoSort(Sort):
     def Sorted(self):

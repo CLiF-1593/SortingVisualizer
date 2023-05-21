@@ -25,6 +25,13 @@ from SortingAlgorithm.Tim_Sort import TimSort
 
 class MainWidget(QWidget):
 
+    class Color:
+        default = QColor(255, 255, 255)
+        out_of_partition = QColor(150, 150, 150)
+        comparing = QColor(214, 71, 71)
+        check = QColor(143, 214, 71)
+        pivot = QColor(71, 205, 214)
+
     def __init__(self):
         super().__init__()
         self.data_size = 1
@@ -48,7 +55,6 @@ class MainWidget(QWidget):
         self.c_w = 1240  # width * 4/5 - 2*canvas_xy
         self.c_h = 860  # height - 2*canvas_xy
         self.c_col = QColor(0, 0, 0)
-        self.default_col = QColor(255, 255, 255)
         self.cmp_col = QColor(255, 255, 0)
         self.change_col = QColor(255, 0, 0)
 
@@ -352,11 +358,26 @@ class MainWidget(QWidget):
             else:
                 val = self.init_arr[i]
 
+            color = self.Color.default
+            if self.running:
+                partition = self.sorter.GetPartition()
+                if partition and not (partition[0] <= i <= partition[1]):
+                    color = self.Color.out_of_partition
+                comparing = self.sorter.GetComparingIndex()
+                if i in comparing:
+                    color = self.Color.comparing
+                pivot = self.sorter.GetPivot()
+                if i == pivot:
+                    color = self.Color.pivot
+                check = self.sorter.GetCheckedIndex()
+                if i <= check:
+                    color = self.Color.check
+
             painter.fillRect(self.c_xy + i * self.c_w // self.data_size,
                              self.c_xy + (self.data_size - val - 1) * self.c_h // self.data_size,
                              (i + 1) * self.c_w // self.data_size - i * self.c_w // self.data_size,
                              self.c_h - (self.data_size - val - 1) * self.c_h // self.data_size,
-                             self.default_col)
+                             color)
 
     # ===========================================================================
     # ============================= Other Functions =============================

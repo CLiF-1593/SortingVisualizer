@@ -21,25 +21,28 @@ class Sort:
         CHECKING = 2
 
     arr: list
-    pivot: int
+    pivot: list
     comparing: list
     partition: list
-    check: int
+    check: list
     delay: list
     thread: threading.Thread
     state: State
-    playsound: bool
+    playsound: list
     max_data: int
     run: bool
 
     # Pulbic Methods
     def __init__(self, timer: SylTimer):
-        self.InitValues()
+        self.pivot = [-1]
+        self.comparing = [[]]
+        self.partition = [[]]
+        self.check = [-1]
         self.arr = []
         self.delay = [0]
         self.thread = threading.Thread()
         self.state = Sort.State.NOT_INITIALIZED
-        self.playsound = False
+        self.playsound = [False]
         self.max_data = 0
         self.timer = timer
         self.run = False
@@ -62,7 +65,9 @@ class Sort:
         self.delay[0] = delay
 
     def SetPlaysound(self, playsound):
-        self.playsound = playsound
+        if not playsound:
+            self.timer.zero()
+        self.playsound[0] = playsound
 
     def Sort(self):
         if self.state == Sort.State.RESTING:
@@ -81,19 +86,19 @@ class Sort:
 
     # Get Current Pivot (Integer Index, -1 : None)
     def GetPivot(self):
-        return self.pivot
+        return self.pivot[0]
 
     # Get Comparing Index (Integer Index List, [] : None)
     def GetComparingIndex(self):
-        return self.comparing
+        return self.comparing[0]
 
     # Get Partition (Integer Index List [begin, end], [] : None)
     def GetPartition(self):
-        return self.partition
+        return self.partition[0]
 
     # Get Last Checked Index (Integer Index, -1 : None)
     def GetCheckedIndex(self):
-        return self.check
+        return self.check[0]
 
     # Private Methods
     @abstractmethod
@@ -102,16 +107,16 @@ class Sort:
 
     def Step(self, pivot: int = -1, comparing_index: list = [], partition: list = [], checked: int = -1,
              sound: int = -1):
-        self.pivot = pivot
-        self.comparing = comparing_index
-        self.partition = partition
-        self.check = checked
-        if self.playsound and sound != -1:
+        self.pivot[0] = pivot
+        self.comparing[0] = comparing_index
+        self.partition[0] = partition
+        self.check[0] = checked
+        if self.playsound[0] and sound != -1:
             if sound == len(self.arr):
                 sound -= 1
-            sine(frequency=400 + (2000 * self.arr[sound] // self.max_data), duration=self.delay[0])
-        elif self.playsound and self.check != -1:
-            sine(frequency=400 + (2000 * self.arr[self.check] // self.max_data), duration=self.delay[0])
+            sine(frequency=500 + (2000 * self.arr[sound] // self.max_data), duration=self.delay[0])
+        elif self.playsound[0] and self.check[0] != -1:
+            sine(frequency=500 + (2000 * self.arr[self.check[0]] // self.max_data), duration=self.delay[0])
         else:
             self.timer.clock(self.delay[0])
 
@@ -130,7 +135,7 @@ class Sort:
         self.Step(checked=len(self.arr) - 1)
 
     def InitValues(self):
-        self.pivot = -1
-        self.comparing = []
-        self.partition = []
-        self.check = -1
+        self.pivot[0] = -1
+        self.comparing[0] = []
+        self.partition[0] = []
+        self.check[0] = -1

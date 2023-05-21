@@ -1,6 +1,6 @@
 from enum import Enum
 
-from SortingAlgorithm.Sort import Sort
+from Sort import Sort
 
 class QuickSort(Sort):
     class PivotType(Enum):
@@ -25,7 +25,7 @@ class QuickSort(Sort):
         if end == None: end = len(self.arr) - 1
         if begin >= end : return
         pivot = self._pivot(begin, end)
-        self.Step(comparing_index = [pivot], sound = pivot)
+        self.Step(comparing_index = [pivot], sound = pivot, partition = [begin, end])
         left = begin
         right = end
         self.Step(comparing_index=[left, right], pivot = pivot, partition = [begin, end], sound = right if left == pivot else left)
