@@ -14,7 +14,10 @@ class RadixSort(Sort):
     def SortingProcess(self):
         digit = 1
         buf = [[] for i in range(self.unit)]
-        while len(buf[0]) != len(self.arr):
+        max_digit = 1
+        while self.max_data % max_digit != self.max_data:
+            max_digit *= self.unit
+        while digit != max_digit:
             buf = [[] for i in range(self.unit)]
             for i in range(len(self.arr)):
                 index = (self.arr[i] // digit) % self.unit

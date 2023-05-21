@@ -14,22 +14,12 @@ class IntroSort(Sort):
     def intro(self, begin, end, depth):
         if end - begin + 1 <= 16:
             insertion_sort = InsertionSort(self.timer)
-            insertion_sort.delay = self.delay
-            insertion_sort.playsound = self.playsound
-            insertion_sort.pivot = self.pivot
-            insertion_sort.comparing = self.comparing
-            insertion_sort.partition = self.partition
-            insertion_sort.SetArrayDirectly(self.arr)
+            insertion_sort.Copy(self)
             insertion_sort.SortingProcess(begin, end)
             return
         if depth == 0 :
             heap_sort = HeapSort(self.timer)
-            heap_sort.delay = self.delay
-            heap_sort.playsound = self.playsound
-            heap_sort.pivot = self.pivot
-            heap_sort.comparing = self.comparing
-            heap_sort.partition = self.partition
-            heap_sort.SetArrayDirectly(self.arr)
+            heap_sort.Copy(self)
             heap_sort.SortingProcess(begin, end)
             return
         if PIVOT == "FIRST":

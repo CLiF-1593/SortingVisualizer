@@ -47,8 +47,18 @@ class Sort:
         self.timer = timer
         self.run = False
 
+    def Copy(self, target):
+        self.arr = target.arr
+        self.delay = target.delay
+        self.playsound = target.playsound
+        self.pivot = target.pivot
+        self.comparing = target.comparing
+        self.partition = target.partition
+        self.check = target.check
+        self.max_data = target.max_data
+
     def SetArrayDirectly(self, arr: list):
-        self.arr = arr
+        self.arr = arr.copy()
         self.state = Sort.State.RESTING
         self.max_data = max(arr)
 

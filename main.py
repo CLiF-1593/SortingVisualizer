@@ -259,10 +259,13 @@ class MainWidget(QWidget):
         self.update()
 
     def _setShuffleMethod(self, method):
+        shuffle = False
         if method == 'Random':
             self.shuffle_btn.setEnabled(True)
+
             if self.shuffle_method != 'Random':
                 self.saved_shuffle_method = self.shuffle_method
+                shuffle = True
             if self.shuffle_method == 'Sorted':
                 self.init_arr = list(range(0, self.data_size, 1))
             elif self.shuffle_method == 'Reversed':
@@ -273,6 +276,8 @@ class MainWidget(QWidget):
             del self.init_arr
             self.init_arr = None
             self.is_shuffled = False
+        if shuffle:
+            self._shuffleData()
         self.update()
 
     def _shuffleData(self):
@@ -332,10 +337,9 @@ class MainWidget(QWidget):
         self.shuffle_select_comboBox.setEnabled(True)
         self.sort_select_comboBox.setEnabled(True)
         self.start_btn.setEnabled(True)
-
         self.reset_btn.setEnabled(False)
-
         self.running = False
+        self.update()
 
     # ============================================================================
     # ============================ Override Functions ============================
@@ -356,7 +360,7 @@ class MainWidget(QWidget):
                 if self.shuffle_method == 'Sorted': val = i
                 if self.shuffle_method == 'Reversed': val = self.data_size - 1 - i
             else:
-                val = self.init_arr[i]
+                val = self.sorter.arr[i]
 
             color = self.Color.default
             if self.running:

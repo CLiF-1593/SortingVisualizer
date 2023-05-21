@@ -4,7 +4,7 @@ class CombSort(Sort):
     def SortingProcess(self):
         g = len(self.arr)
         while True:
-            g = int(g / 1.3) + 1
+            g = int((g - 1) / 1.3 + 1)
             change = False
             for j in range(len(self.arr) - g):
                 self.Step(comparing_index=[j], sound=j)
