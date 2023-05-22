@@ -26,7 +26,7 @@ from SylTimer import SylTimer
 import math
 
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QFont, QPainter, QColor
+from PyQt5.QtGui import QFont, QPainter, QColor, QIcon
 from PyQt5.QtWidgets import *
 
 from SortingAlgorithm.Bogo_Sort import BogoSort
@@ -244,7 +244,8 @@ class MainWidget(QWidget):
         # ===================================================================
 
         self.setMinimumSize(965, 216)
-        self.setWindowTitle('Sorting Visualizer')
+        self.setWindowTitle('Sorting Visualizer - https://github.com/CLiF-1593/SortingVisualizer')
+        self.setWindowIcon(QIcon('Icon//Icon.png'))
         self.resize(1600, 900)
         self.show()
 
