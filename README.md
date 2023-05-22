@@ -23,9 +23,9 @@
 13. Gnome Sort (Stupid Sort)
 14. Odd-Even Sort
 15. Bogo Sort
-16. <a href = "https://github.com/ryankwondev/Adaptive-Partition-Sort">Adaptive Partition Sort</a> (APS, Quick + Merge + Insertion) 
+16. Adaptive Partition Sort (<a href = "https://github.com/ryankwondev/Adaptive-Partition-Sort">APS</a>, Quick + Merge + Insertion) 
 
-## Sample Array for Sorting Test
+## Sample Arraies for Sorting Test
 1. Sorted : Ascending Integer Array
 2. Random : Distinct Random Integer Array
 3. Reversed : Descending Integer Array
