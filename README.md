@@ -25,7 +25,7 @@
 15. Bogo Sort
 16. Adaptive Partition Sort (<a href = "https://github.com/ryankwondev/Adaptive-Partition-Sort">APS</a>, Quick + Merge + Insertion) 
 
-## Sample Arraies for Sorting Test
+## Sample Arrays for Sorting Test
 1. Sorted : Ascending Integer Array
 2. Random : Distinct Random Integer Array
 3. Reversed : Descending Integer Array
