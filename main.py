@@ -139,7 +139,7 @@ class MainWidget(QWidget):
         # sorting_speed_slider
         self.sorting_speed_slider = QSlider(Qt.Horizontal, self)
         self.sorting_speed_slider.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.sorting_speed_slider.setRange(1, 250)
+        self.sorting_speed_slider.setRange(1, 400)
         self.sorting_speed_slider.setFont(self.mainFont)
 
         #
@@ -274,7 +274,6 @@ class MainWidget(QWidget):
         shuffle = False
         if method == 'Random':
             self.shuffle_btn.setEnabled(True)
-
             if self.shuffle_method != 'Random':
                 self.saved_shuffle_method = self.shuffle_method
                 shuffle = True
@@ -303,7 +302,7 @@ class MainWidget(QWidget):
         self.sort_method = method
 
     def _setSortingDelay(self, speed):
-        speed = int(4**(speed / 50))
+        speed = int(10 ** (speed / 100))
         self.sorting_speed = speed
         self.sorting_delay = 1.0 / speed
         self.sorting_speed_slider_label.setText(
@@ -341,12 +340,11 @@ class MainWidget(QWidget):
         self.sorter.SetPlaysound(self.sfx)
         self.sorter.Sort()
 
-
         self.running = True
 
     def _sortingReset(self):
         self.data_size_slider.setEnabled(True)
-        self.shuffle_btn.setEnabled(True)
+        if self.shuffle_method == 'Random': self.shuffle_btn.setEnabled(True)
         self.shuffle_select_comboBox.setEnabled(True)
         self.sort_select_comboBox.setEnabled(True)
         self.start_btn.setEnabled(True)
@@ -369,6 +367,9 @@ class MainWidget(QWidget):
 
         # draw rods
         for i in range(self.data_size):
+            width = (i + 1) * self.c_w // self.data_size - i * self.c_w // self.data_size
+            if width <= 0: continue
+
             if not self.running:
                 if self.shuffle_method == 'Random': val = self.init_arr[i]
                 elif self.shuffle_method == 'Sorted': val = i
@@ -393,7 +394,7 @@ class MainWidget(QWidget):
 
             painter.fillRect(self.c_xy + i * self.c_w // self.data_size,
                              self.c_xy + (self.data_size - val - 1) * self.c_h // self.data_size,
-                             (i + 1) * self.c_w // self.data_size - i * self.c_w // self.data_size,
+                             width,
                              self.c_h - (self.data_size - val - 1) * self.c_h // self.data_size,
                              color)
 

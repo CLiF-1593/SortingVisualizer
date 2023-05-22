@@ -97,7 +97,11 @@ class Sort:
 
     def sort_and_check(self):
         self.SortingProcess()
+        tmp = self.delay[0]
+        self.delay[0] = 0.5 / len(self.arr)
         self.CheckState()
+        self.delay[0] = tmp
+        del tmp
 
 
     def IsFinished(self):
