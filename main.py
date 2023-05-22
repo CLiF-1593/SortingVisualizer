@@ -77,7 +77,7 @@ class MainWidget(QWidget):
 
     def _init_ui(self):
 
-        self.mainFont = QFont('Pretendard Medium', 15)
+        self.mainFont = QFont('Pretendard Medium', 1)
 
         # ===================================================================
         # ============================= Widgets =============================
@@ -220,10 +220,21 @@ class MainWidget(QWidget):
         # ============================= Release =============================
         # ===================================================================
 
-        self.setMinimumSize(1008, 567)
+        self.setMinimumSize(965, 216)
         self.setWindowTitle('Sorting Visualizer')
         self.resize(1600, 900)
         self.show()
+
+        self.mainFont.setPointSize(15)
+
+        self.data_size_slider_label.setFont(self.mainFont)
+        self.shuffle_select_comboBox.setFont(self.mainFont)
+        self.shuffle_btn.setFont(self.mainFont)
+        self.sort_select_comboBox.setFont(self.mainFont)
+        self.sorting_speed_slider_label.setFont(self.mainFont)
+        self.sound_toggle_checkBox.setFont(self.mainFont)
+        self.start_btn.setFont(self.mainFont)
+        self.reset_btn.setFont(self.mainFont)
 
     # ============================================================================
     # ============================= Widget Functions =============================
@@ -330,6 +341,7 @@ class MainWidget(QWidget):
         self.sorter.SetPlaysound(self.sfx)
         self.sorter.Sort()
 
+
         self.running = True
 
     def _sortingReset(self):
@@ -359,8 +371,8 @@ class MainWidget(QWidget):
         for i in range(self.data_size):
             if not self.running:
                 if self.shuffle_method == 'Random': val = self.init_arr[i]
-                if self.shuffle_method == 'Sorted': val = i
-                if self.shuffle_method == 'Reversed': val = self.data_size - 1 - i
+                elif self.shuffle_method == 'Sorted': val = i
+                else: val = self.data_size - 1 - i  # self.shuffle_method == 'Reversed':
             else:
                 val = self.sorter.arr[i]
 
