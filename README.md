@@ -2,6 +2,8 @@
 
 ### Sorting Algorithm Visualization Software
 
+<img src="Icon/Icon.png" width="30%" height="30%">
+
 > 이 프로젝트는 KSA 자료구조 수업 - 정렬 알고리즘 시뮬레이터 개발 숙제를 위해 진행되었습니다.      
 > 정렬 알고리즘의 시각적, 청각적 표현을 통한 심화적 학습을 목적으로 제작되었습니다.     
 
