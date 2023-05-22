@@ -21,6 +21,7 @@ from SortingAlgorithm.Radix_Sort import RadixSort
 from SortingAlgorithm.Selection_Sort import SelectionSort
 from SortingAlgorithm.Shell_Sort import ShellSort
 from SortingAlgorithm.Tim_Sort import TimSort
+from SortingAlgorithm.Adaptive_Partition_Sort import AdaptivePartitionSort
 
 
 class MainWidget(QWidget):
@@ -58,11 +59,11 @@ class MainWidget(QWidget):
         self.cmp_col = QColor(255, 255, 0)
         self.change_col = QColor(255, 0, 0)
 
-        self.sort_method_list = [BogoSort, BubbleSort, CombSort, CountingSort, GnomeSort,
-                                 HeapSort, InsertionSort, IntroSort, MergeSort, OddEvenSort,
-                                 QuickSort, QuickSort, RadixSort, SelectionSort, ShellSort, TimSort]
-        self.sort_method_list_str = ['Bogo Sort', 'Bubble Sort', 'Comb Sort', 'Counting Sort',
-                                     'Gnome Sort', 'Heap Sort', 'Insertion Sort', 'Intro Sort',
+        self.sort_method_list = [AdaptivePartitionSort, BogoSort, BubbleSort, CombSort, CountingSort,
+                                 GnomeSort, HeapSort, InsertionSort, IntroSort, MergeSort, OddEvenSort,
+                                 QuickSort, QuickSort, RadixSort, SelectionSort, ShellSort, TimSort,]
+        self.sort_method_list_str = ['Adaptive Partition Sort', 'Bogo Sort', 'Bubble Sort', 'Comb Sort',
+                                     'Counting Sort','Gnome Sort', 'Heap Sort', 'Insertion Sort', 'Intro Sort',
                                      'Merge Sort', 'Odd Even Sort', 'Quick Sort (Left Pivot)',
                                      'Quick Sort (Right Pivot)', 'Radix Sort', 'Selection Sort',
                                      'Shell Sort', 'Tim Sort']
@@ -320,9 +321,9 @@ class MainWidget(QWidget):
 
         index = self.sort_method_list_str.index(self.sort_method)
         self.sorter = self.sort_method_list[index](self.sort_timer)
-        if index == 10:
+        if index == 11:
             self.sorter.SetPivot(QuickSort.PivotType.PIVOT_FIRST)
-        elif index == 11:
+        elif index == 12:
             self.sorter.SetPivot(QuickSort.PivotType.PIVOT_LAST)
         self.sorter.SetArrayDirectly(self.init_arr)
         self.sorter.SetSpeed(self.sorting_delay)
