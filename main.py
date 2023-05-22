@@ -37,7 +37,7 @@ class MainWidget(QWidget):
         super().__init__()
         self.data_size = 1
         self.shuffle_method = 'Sorted'
-        self.sort_method = 'Bogo Sort'
+        self.sort_method = 'Adaptive Partition Sort'
         self.sorting_speed = 1
         self.sorting_delay = 1.0  # 1 / speed seconds
         self.sfx = True
@@ -340,6 +340,7 @@ class MainWidget(QWidget):
         self.start_btn.setEnabled(True)
         self.reset_btn.setEnabled(False)
         self.running = False
+        self.sorter.Stop()
         self.update()
 
     # ============================================================================

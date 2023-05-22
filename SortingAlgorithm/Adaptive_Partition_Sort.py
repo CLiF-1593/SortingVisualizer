@@ -1,26 +1,30 @@
 import math
 
 from Sort import Sort
-from Merge_Sort import MergeSort
+from Tim_Sort import TimSort
 from Insertion_Sort import InsertionSort
 
 PIVOT = "FIRST"
 
+# Adaptive Partition Sort (APS)
+# Quick + Merge + Insertion
+# Original Source Github : https://github.com/ryankwondev/Adaptive-Partition-Sort
 class AdaptivePartitionSort(Sort):
     def SortingProcess(self):
         depth = int(math.log2(len(self.arr)))
-        self.intro(0, len(self.arr)-1, depth)
+        self.aps(0, len(self.arr)-1, depth)
 
-    def intro(self, begin, end, depth):
-        if end - begin + 1 <= math.log2(len(self.arr)):
+    def aps(self, begin, end, depth):
+        if end - begin + 1 <= 16:
             insertion_sort = InsertionSort(self.timer)
             insertion_sort.Copy(self)
             insertion_sort.SortingProcess(begin, end)
             return
         if depth == 0 :
-            merge_sort = MergeSort(self.timer)
-            merge_sort.Copy(self)
-            merge_sort.SortingProcess(begin, end)
+            # Merge + Insertion -> Tim
+            tim_sort = TimSort(self.timer)
+            tim_sort.Copy(self)
+            tim_sort.SortingProcess(begin, end)
             return
         if PIVOT == "FIRST":
             pivot = begin
@@ -52,5 +56,5 @@ class AdaptivePartitionSort(Sort):
             self.arr[pivot], self.arr[left] = self.arr[left], self.arr[pivot]
             self.Step(comparing_index=[pivot, left], partition = [begin, end], sound=pivot)
             pivot = left
-        self.intro(begin, pivot - 1, depth - 1)
-        self.intro(pivot + 1, end, depth - 1)
+        self.aps(begin, pivot - 1, depth - 1)
+        self.aps(pivot + 1, end, depth - 1)

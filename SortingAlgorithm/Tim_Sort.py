@@ -5,18 +5,19 @@ from Merge_Sort import MergeSort
 THRESHOLD = 16
 
 class TimSort(Sort):
-    def SortingProcess(self):
+    def SortingProcess(self, low = 0, high = -1):
+        if high == -1: high = len(self.arr) - 1
         insertion_sort = InsertionSort(self.timer)
         insertion_sort.Copy(self)
-        for i in range(len(self.arr) // THRESHOLD + 1):
-            insertion_sort.SortingProcess(i * THRESHOLD, min((i + 1) * THRESHOLD - 1, len(self.arr) - 1))
+        for i in range((high - low + 1) // THRESHOLD + 1):
+            insertion_sort.SortingProcess(low + i * THRESHOLD, low + min((i + 1) * THRESHOLD - 1, high - low))
         level = THRESHOLD
         merge_sort = MergeSort(self.timer)
         merge_sort.Copy(self)
-        while level < len(self.arr):
-            for i in range(0, len(self.arr) - level, level * 2):
+        while level <= high - low:
+            for i in range(low, high + 1 - level, level * 2):
                 begin = i
                 mid = i + level - 1
-                end = min(begin + level * 2 - 1, len(self.arr) - 1)
+                end = min(begin + level * 2 - 1, high)
                 merge_sort.Merge(begin, mid, end)
             level *= 2

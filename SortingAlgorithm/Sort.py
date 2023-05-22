@@ -83,7 +83,7 @@ class Sort:
         if self.state == Sort.State.RESTING:
             self.state = Sort.State.SORTING
             self.run = True
-            self.thread = threading.Thread(target=self.sort_and_check)
+            self.thread = threading.Thread(target=self.sort_and_check, daemon=True)
             self.thread.start()
 
     def sort_and_check(self):
@@ -110,6 +110,9 @@ class Sort:
     def GetCheckedIndex(self):
         return self.check[0]
 
+    def Stop(self):
+        pass
+
     # Private Methods
     @abstractmethod
     def SortingProcess(self):
@@ -124,9 +127,9 @@ class Sort:
         if self.playsound[0] and sound != -1:
             if sound == len(self.arr):
                 sound -= 1
-            sine(frequency=500 + (2000 * self.arr[sound] // self.max_data), duration=self.delay[0])
+            sine(frequency=500 + (2000 * self.arr[sound] // (self.max_data + 1)), duration=self.delay[0])
         elif self.playsound[0] and self.check[0] != -1:
-            sine(frequency=500 + (2000 * self.arr[self.check[0]] // self.max_data), duration=self.delay[0])
+            sine(frequency=500 + (2000 * self.arr[self.check[0]] // (self.max_data + 1)), duration=self.delay[0])
         else:
             self.timer.clock(self.delay[0])
 
