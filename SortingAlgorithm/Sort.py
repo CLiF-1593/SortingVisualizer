@@ -1,9 +1,9 @@
 import time
 from abc import abstractmethod
 from enum import Enum
-import threading
 import random
 from pysine import sine
+from PyQt5.QtCore import QThread
 from SylTimer import SylTimer
 
 
@@ -12,6 +12,15 @@ class ArrayType(Enum):
     SORTED = 1
     REVERSED = 2
 
+
+class Thread(QThread):
+    def __init__(self, target=None):
+        super().__init__()
+        self.target = target
+
+    def run(self):
+        if self.target:
+            self.target()
 
 class Sort:
     class State(Enum):
@@ -26,7 +35,7 @@ class Sort:
     partition: list
     check: list
     delay: list
-    thread: threading.Thread
+    thread: Thread
     state: State
     playsound: list
     max_data: int
@@ -40,7 +49,7 @@ class Sort:
         self.check = [-1]
         self.arr = []
         self.delay = [0]
-        self.thread = threading.Thread()
+        self.thread = Thread()
         self.state = Sort.State.NOT_INITIALIZED
         self.playsound = [False]
         self.max_data = 0
@@ -83,7 +92,7 @@ class Sort:
         if self.state == Sort.State.RESTING:
             self.state = Sort.State.SORTING
             self.run = True
-            self.thread = threading.Thread(target=self.sort_and_check, daemon=True)
+            self.thread = Thread(target=self.sort_and_check)
             self.thread.start()
 
     def sort_and_check(self):
@@ -111,7 +120,8 @@ class Sort:
         return self.check[0]
 
     def Stop(self):
-        pass
+        if self.thread.isRunning():
+            self.thread.terminate()
 
     # Private Methods
     @abstractmethod
