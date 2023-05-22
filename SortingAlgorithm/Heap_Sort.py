@@ -1,5 +1,4 @@
-from Sort import Sort
-import heapq
+from SortingAlgorithm.Sort import Sort
 
 class HeapSort(Sort):
     def heapify(self,index, begin_point, end_point):

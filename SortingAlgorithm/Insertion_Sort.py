@@ -1,4 +1,4 @@
-from Sort import Sort
+from SortingAlgorithm.Sort import Sort
 
 class InsertionSort(Sort):
     def SortingProcess(self, begin = None, end = None):

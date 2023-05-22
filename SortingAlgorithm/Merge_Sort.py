@@ -1,4 +1,4 @@
-from Sort import Sort
+from SortingAlgorithm.Sort import Sort
 
 class MergeSort(Sort):
     def Merge(self, front, middle, back):

@@ -1,4 +1,4 @@
-from Sort import Sort
+from SortingAlgorithm.Sort import Sort
 
 class GnomeSort(Sort):
     def SortingProcess(self):

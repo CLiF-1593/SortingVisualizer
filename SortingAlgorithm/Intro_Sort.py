@@ -1,8 +1,8 @@
 import math
 
-from Sort import Sort
-from Heap_Sort import HeapSort
-from Insertion_Sort import InsertionSort
+from SortingAlgorithm.Sort import Sort
+from SortingAlgorithm.Heap_Sort import HeapSort
+from SortingAlgorithm.Insertion_Sort import InsertionSort
 
 PIVOT = "FIRST"
 

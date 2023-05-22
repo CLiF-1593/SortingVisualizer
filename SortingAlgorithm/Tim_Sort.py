@@ -1,6 +1,6 @@
-from Sort import Sort
-from Insertion_Sort import InsertionSort
-from Merge_Sort import MergeSort
+from SortingAlgorithm.Sort import Sort
+from SortingAlgorithm.Insertion_Sort import InsertionSort
+from SortingAlgorithm.Merge_Sort import MergeSort
 
 THRESHOLD = 16
 

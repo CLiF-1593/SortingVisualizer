@@ -1,8 +1,8 @@
 import math
 
-from Sort import Sort
-from Tim_Sort import TimSort
-from Insertion_Sort import InsertionSort
+from SortingAlgorithm.Sort import Sort
+from SortingAlgorithm.Tim_Sort import TimSort
+from SortingAlgorithm.Insertion_Sort import InsertionSort
 
 PIVOT = "FIRST"
 

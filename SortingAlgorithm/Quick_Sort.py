@@ -1,6 +1,6 @@
 from enum import Enum
 
-from Sort import Sort
+from SortingAlgorithm.Sort import Sort
 
 class QuickSort(Sort):
     class PivotType(Enum):
