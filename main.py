@@ -1,6 +1,29 @@
+# Copyright (C) 2023 CLiF and Syeosle
+#
+# [MIT License]
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import random
 import sys
 from SylTimer import SylTimer
+import math
 
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QFont, QPainter, QColor
@@ -104,7 +127,7 @@ class MainWidget(QWidget):
         self.shuffle_select_comboBox.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.shuffle_select_comboBox.setFont(self.mainFont)
 
-        shuffle_method_list = ['Sorted', 'Random', 'Reversed']
+        shuffle_method_list = ['Sorted', 'Random', 'Reversed', 'Almost Sorted']
         for i in shuffle_method_list:
             self.shuffle_select_comboBox.addItem(i)
         del shuffle_method_list
@@ -243,14 +266,14 @@ class MainWidget(QWidget):
     def _setDataSize(self, val):
         self.data_size = int(4**(val / 50))
         self.data_size_slider_label.setText(f'Data Size : {self.data_size}')
-        if self.shuffle_method == 'Random':
+        if self.shuffle_method != 'Sorted' and self.shuffle_method != 'Reversed':
             if len(self.init_arr) < self.data_size:
-                if self.saved_shuffle_method == 'Sorted':
+                if self.saved_shuffle_method == 'Sorted' or self.shuffle_method == 'Almost Sorted':
                     self.init_arr += list(range(len(self.init_arr), self.data_size))
                 elif self.saved_shuffle_method == 'Reversed':
                     self.init_arr = list(range(self.data_size - 1, len(self.init_arr) - 1, -1)) + self.init_arr
             elif len(self.init_arr) > self.data_size:
-                if self.saved_shuffle_method == 'Sorted':
+                if self.saved_shuffle_method == 'Sorted' or self.shuffle_method == 'Almost Sorted':
                     if self.saved_shuffle_len > self.data_size:
                         tmp = self.init_arr
                         self.init_arr = list(range(self.data_size))
@@ -271,32 +294,35 @@ class MainWidget(QWidget):
         self.update()
 
     def _setShuffleMethod(self, method):
-        shuffle = False
-        if method == 'Random':
+        if method != 'Sorted' and method != 'Reversed':
             self.shuffle_btn.setEnabled(True)
-            if self.shuffle_method != 'Random':
+            if self.shuffle_method == 'Sorted' or self.shuffle_method == 'Reversed':
                 self.saved_shuffle_method = self.shuffle_method
-                shuffle = True
-            if self.shuffle_method == 'Sorted':
-                self.init_arr = list(range(0, self.data_size, 1))
-            elif self.shuffle_method == 'Reversed':
-                self.init_arr = list(range(self.data_size - 1, -1, -1))
-        self.shuffle_method = method
-        if method != 'Random':
+            self.init_arr = list(range(0, self.data_size, 1))
+        else:
             self.shuffle_btn.setEnabled(False)
             del self.init_arr
             self.init_arr = None
             self.is_shuffled = False
-        if shuffle:
-            self._shuffleData()
-        self.update()
+        self.shuffle_method = method
+        self._shuffleData()
 
     def _shuffleData(self):
         if self.shuffle_method == 'Random':
             random.shuffle(self.init_arr)
             self.is_shuffled = True
             self.saved_shuffle_len = len(self.init_arr)
-            self.update()
+        elif self.shuffle_method == 'Almost Sorted':
+            tmp = self.init_arr
+            self.init_arr = list(range(self.data_size))
+            del tmp
+            for k in range(int(math.log2(self.data_size))):
+                i = random.randrange(0, self.data_size)
+                j = random.randrange(0, self.data_size)
+                self.init_arr[i], self.init_arr[j] = self.init_arr[j], self.init_arr[i]
+            self.is_shuffled = True
+            self.saved_shuffle_len = len(self.init_arr)
+        self.update()
 
     def _setSortMethod(self, method):
         self.sort_method = method
@@ -344,7 +370,7 @@ class MainWidget(QWidget):
 
     def _sortingReset(self):
         self.data_size_slider.setEnabled(True)
-        if self.shuffle_method == 'Random': self.shuffle_btn.setEnabled(True)
+        if self.shuffle_method != 'Sorted' and self.shuffle_method != 'Reversed': self.shuffle_btn.setEnabled(True)
         self.shuffle_select_comboBox.setEnabled(True)
         self.sort_select_comboBox.setEnabled(True)
         self.start_btn.setEnabled(True)
@@ -371,9 +397,9 @@ class MainWidget(QWidget):
             if width <= 0: continue
 
             if not self.running:
-                if self.shuffle_method == 'Random': val = self.init_arr[i]
+                if self.shuffle_method == 'Reversed': val = self.data_size - 1 - i
                 elif self.shuffle_method == 'Sorted': val = i
-                else: val = self.data_size - 1 - i  # self.shuffle_method == 'Reversed':
+                else: val = val = self.init_arr[i]  # self.shuffle_method == 'Random', 'Almost Sorted':
             else:
                 val = self.sorter.arr[i]
 
