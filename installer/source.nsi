@@ -62,6 +62,8 @@ Section "MainSection" SEC01
   File "..\dist\main\base_library.zip"
   SetOutPath "$INSTDIR\icon"
   File "..\dist\main\icon\Icon.png"
+  SetOutPath "$INSTDIR\font"
+  File "..\dist\main\font\font.ttf"
   SetOutPath "$INSTDIR"
   File "..\dist\main\libcrypto-1_1-x64.dll"
   File "..\dist\main\libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll"
@@ -313,6 +315,7 @@ Section Uninstall
   Delete "$INSTDIR\libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll"
   Delete "$INSTDIR\libcrypto-1_1-x64.dll"
   Delete "$INSTDIR\icon\Icon.png"
+  Delete "$INSTDIR\font\font.ttf"
   Delete "$INSTDIR\base_library.zip"
 
   Delete "$SMPROGRAMS\Sorting Visualizer\Uninstall.lnk"
@@ -336,6 +339,7 @@ Section Uninstall
   RMDir "$INSTDIR\numpy\fft"
   RMDir "$INSTDIR\numpy\core"
   RMDir "$INSTDIR\icon"
+  RMDir "$INSTDIR\font"
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
