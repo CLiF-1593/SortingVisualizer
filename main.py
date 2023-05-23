@@ -26,7 +26,7 @@ from SylTimer import SylTimer
 import math
 
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QFont, QPainter, QColor, QIcon
+from PyQt5.QtGui import QFont, QPainter, QColor, QIcon, QFontDatabase
 from PyQt5.QtWidgets import *
 
 from SortingAlgorithm.Bogo_Sort import BogoSort
@@ -99,7 +99,8 @@ class MainWidget(QWidget):
         self.graphic_timer.start(8)
 
     def _init_ui(self):
-
+        font_db = QFontDatabase()
+        font_db.addApplicationFont('font\\font.ttf')
         self.mainFont = QFont('Pretendard Medium', 1)
 
         # ===================================================================
@@ -245,7 +246,7 @@ class MainWidget(QWidget):
 
         self.setMinimumSize(965, 216)
         self.setWindowTitle('Sorting Visualizer - https://github.com/CLiF-1593/SortingVisualizer')
-        self.setWindowIcon(QIcon('Icon//Icon.png'))
+        self.setWindowIcon(QIcon('icon//Icon.png'))
         self.resize(1600, 900)
         self.show()
 

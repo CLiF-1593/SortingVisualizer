@@ -60,8 +60,8 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite try
   File "..\dist\main\base_library.zip"
-  SetOutPath "$INSTDIR\Icon"
-  File "..\dist\main\Icon\Icon.png"
+  SetOutPath "$INSTDIR\icon"
+  File "..\dist\main\icon\Icon.png"
   SetOutPath "$INSTDIR"
   File "..\dist\main\libcrypto-1_1-x64.dll"
   File "..\dist\main\libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll"
@@ -312,7 +312,7 @@ Section Uninstall
   Delete "$INSTDIR\libssl-1_1-x64.dll"
   Delete "$INSTDIR\libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll"
   Delete "$INSTDIR\libcrypto-1_1-x64.dll"
-  Delete "$INSTDIR\Icon\Icon.png"
+  Delete "$INSTDIR\icon\Icon.png"
   Delete "$INSTDIR\base_library.zip"
 
   Delete "$SMPROGRAMS\Sorting Visualizer\Uninstall.lnk"
@@ -335,7 +335,7 @@ Section Uninstall
   RMDir "$INSTDIR\numpy\linalg"
   RMDir "$INSTDIR\numpy\fft"
   RMDir "$INSTDIR\numpy\core"
-  RMDir "$INSTDIR\Icon"
+  RMDir "$INSTDIR\icon"
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
