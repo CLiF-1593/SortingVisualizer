@@ -1,24 +1,8 @@
+# =================================================================
+# [GPL 2.0 License]
 # Copyright (C) 2023 CLiF and Syeosle
-#
-# [MIT License]
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# See https://github.com/CLiF-1593/SortingVisualizer/blob/master/LICENSE for more details.
+# =================================================================
 
 import random
 import sys
@@ -45,6 +29,7 @@ from SortingAlgorithm.Selection_Sort import SelectionSort
 from SortingAlgorithm.Shell_Sort import ShellSort
 from SortingAlgorithm.Tim_Sort import TimSort
 from SortingAlgorithm.Adaptive_Partition_Sort import AdaptivePartitionSort
+from SortingAlgorithm.Cocktail_Sort import CocktailSort
 
 
 class MainWidget(QWidget):
@@ -82,10 +67,10 @@ class MainWidget(QWidget):
         self.cmp_col = QColor(255, 255, 0)
         self.change_col = QColor(255, 0, 0)
 
-        self.sort_method_list = [AdaptivePartitionSort, BogoSort, BubbleSort, CombSort, CountingSort,
+        self.sort_method_list = [AdaptivePartitionSort, BogoSort, BubbleSort, CocktailSort, CombSort, CountingSort,
                                  GnomeSort, HeapSort, InsertionSort, IntroSort, MergeSort, OddEvenSort,
                                  QuickSort, QuickSort, RadixSort, SelectionSort, ShellSort, TimSort,]
-        self.sort_method_list_str = ['Adaptive Partition Sort', 'Bogo Sort', 'Bubble Sort', 'Comb Sort',
+        self.sort_method_list_str = ['Adaptive Partition Sort', 'Bogo Sort', 'Bubble Sort', 'Cocktail Sort', 'Comb Sort',
                                      'Counting Sort','Gnome Sort', 'Heap Sort', 'Insertion Sort', 'Intro Sort',
                                      'Merge Sort', 'Odd Even Sort', 'Quick Sort (Left Pivot)',
                                      'Quick Sort (Right Pivot)', 'Radix Sort', 'Selection Sort',
@@ -359,9 +344,9 @@ class MainWidget(QWidget):
 
         index = self.sort_method_list_str.index(self.sort_method)
         self.sorter = self.sort_method_list[index](self.sort_timer)
-        if index == 11:
+        if index == 12:
             self.sorter.SetPivot(QuickSort.PivotType.PIVOT_FIRST)
-        elif index == 12:
+        elif index == 13:
             self.sorter.SetPivot(QuickSort.PivotType.PIVOT_LAST)
         self.sorter.SetArrayDirectly(self.init_arr)
         self.sorter.SetSpeed(self.sorting_delay)
