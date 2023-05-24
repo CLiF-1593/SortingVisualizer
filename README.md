@@ -10,23 +10,23 @@
 - - -
       
 ## Sorting Algorithm List     
-1. Bubble Sort
-2. Insertion Sort
-3. Selection Sort
-4. Quick Sort (First Index Pivot, Last Index Pivot)
-5. Merge Sort
-6. Radix Sort (LSD)
-7. Shell Sort
-8. Comb Sort
-9. Heap Sort
-10. Tim Sort (Merge + Insertion)
-11. Intro Sort (Quick + Heap + Insertion)
-12. Counting Sort
-13. Gnome Sort (Stupid Sort)
-14. Odd-Even Sort
-15. 
-16. Bogo Sort
-17. Adaptive Partition Sort (<a href = "https://github.com/ryankwondev/Adaptive-Partition-Sort">APS</a>, Quick + Merge + Insertion) 
+1. Bubble Sort [(Info)](https://en.wikipedia.org/wiki/Bubble_sort)
+2. Insertion Sort [(Info)](https://en.wikipedia.org/wiki/Insertion_sort)
+3. Selection Sort [(Info)](https://en.wikipedia.org/wiki/Selection_sort)
+4. Quick Sort (First Index Pivot, Last Index Pivot) [(Info)](https://en.wikipedia.org/wiki/Quick_sort)
+5. Merge Sort [(Info)](https://en.wikipedia.org/wiki/Merge_sort)
+6. Radix Sort (LSD) [(Info)](https://en.wikipedia.org/wiki/Radix_sort)
+7. Shell Sort [(Info)](https://en.wikipedia.org/wiki/Shell_sort)
+8. Comb Sort [(Info)](https://en.wikipedia.org/wiki/Comb_sort)
+9. Heap Sort [(Info)](https://en.wikipedia.org/wiki/Heap_sort)
+10. Tim Sort (Merge + Insertion) [(Info)](https://en.wikipedia.org/wiki/Tim_sort)
+11. Intro Sort (Quick + Heap + Insertion) [(Info)](https://en.wikipedia.org/wiki/Intro_sort)
+12. Counting Sort [(Info)](https://en.wikipedia.org/wiki/Counting_sort)
+13. Gnome Sort (Stupid Sort) [(Info)](https://en.wikipedia.org/wiki/Gnome_sort)
+14. Odd-Even Sort [(Info)](https://en.wikipedia.org/wiki/Odd–even_sort)
+15. Cocktail Sort [(Info)](https://en.wikipedia.org/wiki/Cocktail_sort)
+16. Bogo Sort [(Info)](https://en.wikipedia.org/wiki/Bogo_sort)
+17. Adaptive Partition Sort (APS, Quick + Merge + Insertion) [(Info)](https://github.com/ryankwondev/Adaptive-Partition-Sort) 
 
 ## Sample Arrays for Sorting Test
 1. Sorted : Ascending Integer Array
