@@ -46,3 +46,5 @@
 ### License : GNU 2.0
 
 ### Copyright (C) 2023 CLiF and Syeosle
+
+This program was developed with PyQt
