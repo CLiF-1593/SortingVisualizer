@@ -1,6 +1,6 @@
 # =================================================================
-# [GPL 2.0 License]
-# Copyright (C) 2023 CLiF and Syeosle
+# [GPL 3.0 License]
+# Copyright (C) 2023 by CLiF and Syeosle
 # See https://github.com/CLiF-1593/SortingVisualizer/blob/master/LICENSE for more details.
 # =================================================================
 
